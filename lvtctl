@@ -1,0 +1,5 @@
+#!/bin/bash
+#
+# Convenience wrapper for vtctlclient to issue commands to vtctl server
+
+exec vtctlclient -server vtctl1:15999 "$@"
