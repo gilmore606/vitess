@@ -28,7 +28,7 @@ dbconfig_flags="$dbconfig_dba_flags \
   -db-config-filtered-charset utf8"
 
 init_db_sql_file="$VTROOT/config/init_db.sql"
-export EXTRA_MY_CNF=$VTROOT/config/mycnf/master_mariadb.cnf
+export EXTRA_MY_CNF=$script_root/my-overrides.cnf
 mkdir -p $VTDATAROOT/backups
 
 uid=$my_uid
@@ -73,7 +73,6 @@ $VTROOT/bin/vttablet \
   -init_shard $my_shard \
   -init_tablet_type $tablet_type \
   -health_check_interval 5s \
-  -enable_semi_sync \
   -enable_replication_reporter \
   -backup_storage_implementation file \
   -file_backup_storage_root $my_backup_dir \
@@ -86,7 +85,14 @@ $VTROOT/bin/vttablet \
   $dbconfig_flags \
   > $VTDATAROOT/$tablet_dir/vttablet.out 2>&1 &
 
-echo "Access tablet $alias at http://$hostname:$port/debug/status"
+sleep 1
+
+if pgrep -x "vttablet" > /dev/null; then
+  echo "Access tablet $alias at http://$hostname:$port/debug/status"
+else
+  echo "FAILED TO START -- output tail:"
+  cat $VTDATAROOT/$tablet_dir/vttablet.out
+fi
+
 
 disown -a
-

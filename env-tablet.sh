@@ -12,3 +12,5 @@ my_grpc_port=16001
 my_base_port=15001
 my_tablet_type=master
 my_backup_dir=$VTDATAROOT/backups
+printf -v my_alias '%s-%010d' $my_cell $my_uid
+printf -v my_tablet_dir 'vt_%010d' $my_uid

@@ -1,5 +1,10 @@
 #!/bin/bash
 #
 # Convenience wrapper for vtctlclient to issue commands to vtctl server
+set -e
 
-exec vtctlclient -server vtctl1:15999 "$@"
+script_root=`dirname "${BASH_SOURCE}"`
+source $script_root/env.sh
+source $script_root/env-tablet.sh
+
+exec vtctlclient -server $vtctl_server:15999 "$@"

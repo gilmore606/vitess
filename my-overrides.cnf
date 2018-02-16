@@ -1,0 +1,11 @@
+#
+# This cnf is added to $VTROOT/config/mycnf/default.cnf and can override it
+#
+
+# enable strict mode so it's safe to compare sequence numbers across different server IDs.
+gtid_strict_mode = 1
+innodb_stats_persistent = 0
+
+# size buffer pool to half the RAM
+innodb_buffer_pool_size = 8G
+

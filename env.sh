@@ -22,6 +22,7 @@ export VT_MYSQL_ROOT=/usr/local/mysql
 
 export TOPOLOGY_FLAGS="-topo_implementation zk2 -topo_global_server_address $ZK_SERVER -topo_global_root /vitess/global"
 export cell_name=cell1
+export vtctl_server=vtctl1
 export my_aliases=`grep $hostname /etc/hosts`
 
 mkdir -p $VTDATAROOT/tmp
